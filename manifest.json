@@ -1,0 +1,22 @@
+{
+  "name": "GLT10CUP",
+  "short_name": "GLT10CUP",
+  "description": "GLT10CUP Live Scoring",
+  "start_url": "/glt10cup/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#5c1fff",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/glt10cup/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/glt10cup/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
