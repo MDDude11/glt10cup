@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -18,3 +19,17 @@ If you are developing a production application, we recommend using TypeScript wi
 =======
 # glt10cup
 >>>>>>> 1bbd5524a68fcf719b305c38011cae78b0dbc2cf
+=======
+# GLT10CUP
+
+Official GLT10CUP live scoring application.
+
+Features:
+- Live scoring
+- Toss system
+- Bowling restrictions
+- Match rescheduling
+- PDF scorecard export
+- Adjustable overs
+- Commentary and scorecards
+>>>>>>> origin/main
