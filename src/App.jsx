@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { db } from "./firebase";
+import { ref, set, onValue } from "firebase/database";
 
 // ─── TEAMS & FIXTURES ────────────────────────────────────────────────────────
 const TEAMS = {
@@ -1119,13 +1121,38 @@ function ScoringScreen({fixture,matchState,onUpdate,onBack,isAdmin}){
       ? matchState
       : { status: "upcoming", innings: [], live: { ...BLANK_LIVE }, result: null, penaltyLog: [] }
   );
+  useEffect(() => {
+  if (!fixture?.id) return;
+
+  // Admin writes to Firebase, viewers read from Firebase
+  if (isAdmin) return;
+
+  const matchRef = ref(db, `matches/${fixture.id}`);
+
+  const unsub = onValue(matchRef, (snapshot) => {
+    const data = snapshot.val();
+
+    if (data) {
+      setMs(data);
+    }
+  });
+
+  return () => unsub();
+}, [fixture, isAdmin]);
   const [toast,setToast]=useState(null);const [wktMod,setWktMod]=useState(false);
   const [shakeK,setShakeK]=useState(0);const [viewTab,setViewTab]=useState("live");
   const [resetAsk,setResetAsk]=useState(false);
 
   const notify=(msg,type="info")=>{setToast({msg,type});setTimeout(()=>setToast(null),3000);};
   const shake=()=>setShakeK(k=>k+1);
-  const doSave=useCallback(nm=>{setMs(nm);onUpdate(nm);},[onUpdate]);
+  const doSave = useCallback((nm) => {
+  setMs(nm);
+  onUpdate(nm);
+
+  if (fixture?.id) {
+    set(ref(db, `matches/${fixture.id}`), nm);
+  }
+}, [onUpdate, fixture]);
   const doReset=useCallback(()=>{doSave({status:"upcoming",innings:[],live:{...BLANK_LIVE},result:null,penaltyLog:[]});setResetAsk(false);},[doSave]);
 
   const curInn = ms?.innings?.[ms.innings.length - 1];
