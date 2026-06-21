@@ -1482,7 +1482,7 @@ select option{
 
 /* ── UI MAXX overrides ───────────────────────────────────────────────────── */
 .page{
-  padding-bottom:128px;
+  padding-bottom:104px;
 }
 
 .bottom-nav{
@@ -2541,8 +2541,9 @@ body{
 
 @media (max-width: 680px){
   .page{
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom)) !important;
   }
   .card,
   .morph-panel,
@@ -2564,8 +2565,17 @@ body{
     font-size: 12px;
   }
   .bottom-nav{
-    padding: 7px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: none;
+    margin: 0;
+    border-radius: 18px 18px 0 0;
+    padding: 7px 8px calc(10px + env(safe-area-inset-bottom));
     gap: 6px;
+  }
+  .nav-item{
+    min-height: 52px;
   }
   .nav-label{
     font-size: 10px;
