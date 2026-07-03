@@ -31,7 +31,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Deploys everything in your root directory. Change this if your build goes to a folder like 'dist' or 'build'
+          path: 'dist' # Deploys everything in your root directory. Change this if your build goes to a folder like 'dist' or 'build'
           
       - name: Deploy to GitHub Pages
         id: deployment
