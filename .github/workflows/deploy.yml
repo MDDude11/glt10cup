@@ -1,0 +1,38 @@
+name: Manual Pages Deploy
+
+on:
+  workflow_dispatch: # This creates the manual "Run workflow" button
+  push:
+    branches:
+      - main       # Triggers automatically when you push to main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.' # Deploys everything in your root directory. Change this if your build goes to a folder like 'dist' or 'build'
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
